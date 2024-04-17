@@ -26,35 +26,54 @@ public class UsuarioServicio {
     //guardar un usuario
     public Usuario guardarUsuario(Usuario datosUsuario) throws Exception{
         try{
-            if(validacionUsuario.validarNombres(datosUsuario.getNombres())==true){
-                if(validacionUsuario.validarCedula(datosUsuario.getCedula())==true){
-                    if(validacionUsuario.validarCorreo(datosUsuario.getCorreo())==true){
-                        if(validacionUsuario.validarSexo(datosUsuario.getSexo())==true){
-                            if(validacionUsuario.validarCodigoPostal(datosUsuario.getCodigoPostal())==true){
-                                //en este apratado ya puedo guardar datos
-                                //porque toidos estan correctos
-                                //llamar a la capa responsable de guardar datos en BD
-                                return usuarioRepositorio.save(datosUsuario);
-                            }
-                        }
-                    }
-                }
+            if(!validacionUsuario.validarNombres(datosUsuario.getNombres())) {
+                throw new Exception("NOMBRE SINVALIDOS, REVISE POR FAVOR");
             }
-            return null;
+
+            if(!validacionUsuario.validarCorreo(datosUsuario.getCorreo())){
+                throw new Exception("Correo invalido");
+            }
+
+            if(!validacionUsuario.validarSexo(datosUsuario.getSexo())){
+                throw new Exception("Sexo invalido");
+            }
+
+            if(!validacionUsuario.validarCodigoPostal(datosUsuario.getCodigoPostal())){
+                throw new Exception("codigo postal invalido");
+            }
+            if(!validacionUsuario.validarCedula(datosUsuario.getCedula())){
+                throw new Exception("cedula invalido");
+            }
+            return usuarioRepositorio.save(datosUsuario);
+
         }catch(Exception error){
             throw new Exception(error.getMessage());
         }
     }
 
     //consultar un usuario en bd por ID
-    public Usuario buscarUsuarioPorId(){
-        return null;
+    public Usuario buscarUsuarioPorId(Integer idUsuario) throws Exception{
+        try{
+
+            if(usuarioRepositorio.findById(idUsuario).isPresent()){
+                return usuarioRepositorio.findById(idUsuario).get();
+            }else{
+                throw new Exception("Usuario no encontrado");
+            }
+
+        }catch(Exception error){
+            throw new Exception(error.getMessage());
+        }
     }
 
 
     //consultar todos los usuarios
-    public List<Usuario> buscarTodosUsuarios(){
-        return null;
+    public List<Usuario> buscarTodosUsuarios() throws Exception{
+        try{
+            return usuarioRepositorio.findAll();
+        }catch(Exception error){
+            throw new Exception(error.getMessage());
+        }
     }
 
     //editar un usuario
