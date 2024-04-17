@@ -51,7 +51,7 @@ public class ValidacionUsuario {
         }
         return true;
     }
-    public boolean codigoPostal(String codigoPostal)throws Exception{
+    public boolean validarCodigoPostal(String codigoPostal)throws Exception{
         if (codigoPostal.length()==0){
             throw new Exception("la longitud del codigo postal no puede ser cero");
         }
