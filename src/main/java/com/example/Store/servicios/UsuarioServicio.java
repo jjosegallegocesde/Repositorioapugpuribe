@@ -38,9 +38,6 @@ public class UsuarioServicio {
                 throw new Exception("Sexo invalido");
             }
 
-            if(!validacionUsuario.validarCodigoPostal(datosUsuario.getCodigoPostal())){
-                throw new Exception("codigo postal invalido");
-            }
             if(!validacionUsuario.validarCedula(datosUsuario.getCedula())){
                 throw new Exception("cedula invalido");
             }

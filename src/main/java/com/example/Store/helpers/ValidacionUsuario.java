@@ -1,5 +1,9 @@
 package com.example.Store.helpers;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
+@Component
 public class ValidacionUsuario {
     public boolean validarNombres(String nombres)throws Exception{
         if (nombres.length()==0){
@@ -10,7 +14,7 @@ public class ValidacionUsuario {
         }
         String regex="^[a-zA-Z ]+$";
         // evaluo si el nombre coincide con la expresion
-        if (!ValidarPatron.evaluarPatron(nombres,regex)){
+        if (ValidarPatron.evaluarPatron(nombres,regex)){
             throw new Exception("revisa el nombre ingresado ya que solo puede tener letras y espacios");
         }
         return true;
@@ -30,7 +34,7 @@ public class ValidacionUsuario {
     }
     public boolean validarCorreo(String correo)throws Exception{
         String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-        if (!ValidarPatron.evaluarPatron(correo,regex)){
+        if (ValidarPatron.evaluarPatron(correo,regex)){
             throw new Exception("correo no cumple con el formato adecuado");
         }
         if (correo.length()==0){
@@ -46,9 +50,7 @@ public class ValidacionUsuario {
         if (sexo.length()>1){
             throw new Exception("la longitud del sexo no puede ser mayor a 1");
         }
-        if (!sexo.toLowerCase().equals("m") || !sexo.toLowerCase().equals("f")){
-            throw new Exception("el valor del sexo solo puede ser m o f");
-        }
+
         return true;
     }
     public boolean validarCodigoPostal(String codigoPostal)throws Exception{
